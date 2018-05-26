@@ -3,11 +3,21 @@ package org.spring.sparql.external;
 import org.openrdf.model.Value;
 import org.openrdf.query.BindingSet;
 import org.openrdf.query.TupleQueryResult;
+import org.spring.sparql.constants.Queries;
+import org.spring.sparql.entities.dataEntities.ArtistEntity;
 import org.spring.sparql.services.SPARQLService;
 
-public class DBPediaController {
+import java.util.ArrayList;
+import java.util.List;
 
+public class DBPediaController {
     private String URL = "http://dbpedia.org/sparql";
+    SPARQLService sparql;
+
+    public DBPediaController() {
+        sparql = new SPARQLService(URL);
+    }
+
     public void getInfoAboutBand() throws Exception{
         String QUERY = "PREFIX dbo: <http://dbpedia.org/ontology/>\n" +
                 "PREFIX dbp: <http://dbpedia.org/resource/>\n" +
@@ -17,7 +27,6 @@ public class DBPediaController {
                 "where {\n" +
                 "\t?band foaf:name \"Rammstein\"@en\n" +
                 "}\n";
-        SPARQLService sparql = new SPARQLService(URL);
 
         TupleQueryResult result = sparql.select(QUERY);
 
@@ -26,5 +35,17 @@ public class DBPediaController {
             Value band = bs.getValue("band");
             System.out.println("band = " + band.stringValue());
         }
+    }
+
+    public List<ArtistEntity> getArtistHometown(String name) throws Exception{
+        String query = String.format(Queries.GET_ARTIST_HOMETOWN_QUERY, name);
+        TupleQueryResult result = sparql.select(query);
+        List<ArtistEntity> artists = new ArrayList<>();
+        while (result.hasNext()) {
+            BindingSet bs = result.next();
+            ArtistEntity artist = new ArtistEntity(bs);
+            artists.add(artist);
+        }
+        return artists;
     }
 }
