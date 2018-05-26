@@ -12,6 +12,7 @@ import java.util.Collection;
 public class LastFmController {
     private String user;
     private String key;
+    private final int DEFALUT_LIMIT = 1000;
 
     public LastFmController(String user, String key){
         Caller.getInstance().setUserAgent("tst");

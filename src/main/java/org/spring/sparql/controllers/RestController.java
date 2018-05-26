@@ -47,4 +47,10 @@ public class RestController {
         List<ArtistEntity> artists = cntr.getArtistHometown(name);
         return new ResponseEntity<Object>(artists, HttpStatus.OK);
     }
+
+    @RequestMapping("/hometowns")
+    public ResponseEntity<Object> getArtistsHometowns() throws Exception{
+        Collection<ArtistEntity> artists = controller.getArtistsHometowns();
+        return new ResponseEntity<Object>(artists, HttpStatus.OK);
+    }
 }
