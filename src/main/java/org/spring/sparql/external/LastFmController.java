@@ -26,4 +26,9 @@ public class LastFmController {
         Collection<Artist> artists = User.getTopArtists(user, Period.OVERALL, key);
         return artists;
     }
+
+    public Collection<Artist> getTopArtists(int limit){
+        Collection<Artist> artists = ExtendedLastFmUser.getTopArtists(user, Period.OVERALL, limit, key);
+        return artists;
+    }
 }

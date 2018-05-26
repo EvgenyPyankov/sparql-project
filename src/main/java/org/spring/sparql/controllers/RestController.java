@@ -19,6 +19,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
 public class RestController {
+    AppController controller = new AppController();
 
     @RequestMapping("/")
     public String index(Model model){
@@ -29,13 +30,19 @@ public class RestController {
 
     @RequestMapping("/artists")
     public ResponseEntity<Object> artists(Model model){
-        AppController controller = new AppController();
         Collection<Artist> artists = controller.getTopArtists();
         return new ResponseEntity<Object>(artists, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/artists/{name}", method = GET)
-    public ResponseEntity<Object> test( @PathVariable("name") String name) throws Exception{
+    @RequestMapping(value = "/artists/{limit}", method = GET)
+    public ResponseEntity<Object> artists(@PathVariable("limit") int limit){
+        System.out.println("here");
+        Collection<Artist> artists = controller.getTopArtists(limit);
+        return new ResponseEntity<Object>(artists, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/artist/{name}", method = GET)
+    public ResponseEntity<Object> test(@PathVariable("name") String name) throws Exception{
         DBPediaController cntr = new DBPediaController();
         List<ArtistEntity> artists = cntr.getArtistHometown(name);
         return new ResponseEntity<Object>(artists, HttpStatus.OK);
