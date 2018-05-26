@@ -38,7 +38,23 @@ public class DBPediaController {
     }
 
     public List<ArtistEntity> getArtistHometown(String name) throws Exception{
-        String query = String.format(Queries.GET_ARTIST_HOMETOWN_QUERY, name);
+        String query = String.format(Queries.GET_ARTIST_HOMETOWN_LOCATION_QUERY, name);
+        TupleQueryResult result = sparql.select(query);
+        List<ArtistEntity> artists = new ArrayList<>();
+        while (result.hasNext()) {
+            BindingSet bs = result.next();
+            ArtistEntity artist = new ArtistEntity(bs);
+            artists.add(artist);
+        }
+        return artists;
+    }
+
+    public List<ArtistEntity> getArtistsHometowns(String[]names) throws Exception{
+        String tmp = "";
+        for (String name: names){
+            tmp+=String.format("(\"%s\"@en)");
+        }
+        String query = String.format(Queries.GET_ARTISTS_HOMETOWNS_QUERY, tmp);
         TupleQueryResult result = sparql.select(query);
         List<ArtistEntity> artists = new ArrayList<>();
         while (result.hasNext()) {
