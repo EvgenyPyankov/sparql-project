@@ -4,6 +4,7 @@ import de.umass.lastfm.Artist;
 import de.umass.lastfm.Caller;
 import de.umass.lastfm.Period;
 import de.umass.lastfm.User;
+import org.spring.sparql.constants.Credentials;
 
 import java.util.Collection;
 
@@ -19,8 +20,8 @@ public class LastFmController {
     }
 
     public LastFmController(){
-        this.user = "user";
-        this.key = "key";
+        this.user = Credentials.LAST_FM_USER;
+        this.key = Credentials.LAST_FM_KEY;
     }
     public Collection<Artist> getTopArtists(){
         Collection<Artist> artists = User.getTopArtists(user, Period.OVERALL, key);
