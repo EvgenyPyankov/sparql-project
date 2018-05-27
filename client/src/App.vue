@@ -1,17 +1,15 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
+    <google-map />
   </div>
 </template>
 
 <script>
+  import GoogleMap from "./components/GoogleMap";
 export default {
   name: 'app',
-  data () {
-    return {
-      msg: 'Welcome!'
-    }
+  components: {
+    GoogleMap
   }
 }
 </script>
