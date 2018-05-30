@@ -1,20 +1,13 @@
 <template>
   <div>
     <div>
-      <h2>Search and add a pin</h2>
-      <label>
-        <gmap-autocomplete
-          @place_changed="setPlace">
-        </gmap-autocomplete>
-        <button @click="addMarker">Add</button>
-      </label>
-      <br/>
-
+      <h2>Map</h2>
+      <button @click="addMarkers">Add</button>
     </div>
     <br>
     <gmap-map
       :center="center"
-      :zoom="12"
+      :zoom="1"
       style="width:100%;  height: 400px;"
     >
       <gmap-marker
@@ -32,43 +25,40 @@
     name: "GoogleMap",
     data() {
       return {
-        // default to Montreal to keep it simple
-        // change this to whatever makes sense
-        center: { lat: 45.508, lng: -73.587 },
+        center: {lat: 45.508, lng: -73.587},
         markers: [],
         places: [],
-        currentPlace: null
+        currentPlace: null,
+        artists: [],
       };
     },
 
     mounted() {
-      this.geolocate();
-    },
-
-    methods: {
-      // receives a place object via the autocomplete component
-      setPlace(place) {
-        this.currentPlace = place;
-      },
-      addMarker() {
-        if (this.currentPlace) {
-          const marker = {
-            lat: this.currentPlace.geometry.location.lat(),
-            lng: this.currentPlace.geometry.location.lng()
-          };
-          this.markers.push({ position: marker });
-          this.places.push(this.currentPlace);
-          this.center = marker;
-          this.currentPlace = null;
-        }
-      },
-      geolocate: function() {
-        navigator.geolocation.getCurrentPosition(position => {
-          this.center = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
+      fetch("http://localhost:8080/hometowns")
+        .then(response => response.json())
+        .then((data) => {
+          this.artists = data;
         });
+    },
+    methods: {
+      addMarkers() {
+        console.log("artists" + this.artists)
+        for (var i = 0; i < this.artists.length; i++) {
+          if (this.artists[i] === null)
+            continue;
+          var l = this.artists[i].location.lat;
+          var m = this.artists[i].location.lon;
+          if (l != null && m != null) {
+            const marker = {
+              lat: this.artists[i].location.lat,
+              lng: this.artists[i].location.lon
+            };
+            this.markers.push({position: marker});
+            this.places.push(this.currentPlace);
+            this.center = marker;
+            this.currentPlace = null;
+          }
+        }
       }
     }
   };
