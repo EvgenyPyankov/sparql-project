@@ -1,0 +1,11 @@
+ PREFIX dbo: <http://dbpedia.org/ontology/>
+ PREFIX dbp: <http://dbpedia.org/resource/>
+ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+ select ?band ?hometown ?lat ?lon
+ where {
+ ?band foaf:name "%s"@en.
+         ?band dbo:hometown ?hometown.
+         ?hometown geo:lat ?lat.
+         ?hometown geo:long ?lon.
+ }
