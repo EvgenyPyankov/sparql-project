@@ -2,7 +2,7 @@
   <div>
     <div>
       <h2>Map</h2>
-      <button @click="addMarkers">Add</button>
+      <button @click="addMarkers">Add Markers</button>
     </div>
     <br>
     <gmap-map
@@ -11,11 +11,19 @@
       style="width:100%;  height: 400px;"
     >
       <gmap-marker
-        :key="index"
-        v-for="(m, index) in markers"
-        :position="m.position"
-        @click="center=m.position"
-      ></gmap-marker>
+        :key="key"
+        v-for="(marker, key) in markers"
+        :position="marker.position"
+        @click="toggleInfo(marker, key)"
+      >
+      </gmap-marker>
+      <gmap-info-window
+        :options="infoOptions"
+        :position="infoPosition"
+        :opened="infoOpened"
+        @closeclick="infoOpened=false">
+        {{infoContent}}
+      </gmap-info-window>
     </gmap-map>
   </div>
 </template>
@@ -27,9 +35,17 @@
       return {
         center: {lat: 45.508, lng: -73.587},
         markers: [],
-        places: [],
-        currentPlace: null,
         artists: [],
+        infoPosition: null,
+        infoContent: null,
+        infoCurrentKey: null,
+        infoOpened: false,
+        infoOptions: {
+          pixelOffset: {
+            width: 0,
+            height: -35
+          }
+        }
       };
     },
 
@@ -42,22 +58,36 @@
     },
     methods: {
       addMarkers() {
-        console.log("artists" + this.artists)
         for (var i = 0; i < this.artists.length; i++) {
-          if (this.artists[i] === null)
+          var artist = this.artists[i];
+          if (artist === null)
             continue;
-          var l = this.artists[i].location.lat;
-          var m = this.artists[i].location.lon;
-          if (l != null && m != null) {
-            const marker = {
-              lat: this.artists[i].location.lat,
-              lng: this.artists[i].location.lon
-            };
-            this.markers.push({position: marker});
-            this.places.push(this.currentPlace);
-            this.center = marker;
-            this.currentPlace = null;
+          var lat = artist.location.lat;
+          var lng = artist.location.lon;
+          if (lat === null && lng === null) {
+            continue;
           }
+          const marker = {
+            position: {
+              lat: lat,
+              lng: lng
+            },
+            content: artist.bandName + ', ' + artist.hometownName
+          };
+          this.markers.push(marker)
+          this.center = marker.position;
+
+        }
+      },
+      toggleInfo(marker, key) {
+        // this.center = marker.position;
+        this.infoPosition = marker.position;
+        this.infoContent = marker.content;
+        if (this.infoCurrentKey == key) {
+          this.infoOpened = !this.infoOpened;
+        } else {
+          this.infoOpened = true;
+          this.infoCurrentKey = key;
         }
       }
     }

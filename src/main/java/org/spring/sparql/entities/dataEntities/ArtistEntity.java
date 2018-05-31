@@ -5,6 +5,7 @@ import org.openrdf.query.BindingSet;
 
 public class ArtistEntity {
     private String band;
+    private String bandName;
     private String hometown;
     private String hometownName;
     private Location location;
@@ -14,7 +15,7 @@ public class ArtistEntity {
         this.hometown = hometown;
     }
 
-    public ArtistEntity(BindingSet bs){
+    public ArtistEntity(String name, BindingSet bs){
         Value band = bs.getValue("band");
         Value hometown = bs.getValue("hometown");
         Value hometownName = bs.getValue("hometownName");
@@ -23,6 +24,7 @@ public class ArtistEntity {
         Double doubleLat = lat != null? Double.parseDouble(lat.stringValue()): 0;
         Double doubleLon = lon != null? Double.parseDouble(lon.stringValue()): 0;
         this.band = band.stringValue();
+        this.bandName = name;
         this.hometown = hometown.stringValue();
         this.hometownName = hometownName.stringValue();
         this.location = new Location(doubleLat, doubleLon);
@@ -34,6 +36,14 @@ public class ArtistEntity {
 
     public void setBand(String band) {
         this.band = band;
+    }
+
+    public String getBandName() {
+        return bandName;
+    }
+
+    public void setBandName(String bandName) {
+        this.bandName = bandName;
     }
 
     public String getHometown() {

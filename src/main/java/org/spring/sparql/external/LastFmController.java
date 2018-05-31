@@ -12,7 +12,7 @@ import java.util.Collection;
 public class LastFmController {
     private String user;
     private String key;
-    private final int DEFALUT_LIMIT = 1000;
+    private final int DEFALUT_LIMIT = 100;
 
     public LastFmController(String user, String key){
         Caller.getInstance().setUserAgent("tst");
@@ -25,7 +25,7 @@ public class LastFmController {
         this.key = Credentials.LAST_FM_KEY;
     }
     public Collection<Artist> getTopArtists(){
-        Collection<Artist> artists = User.getTopArtists(user, Period.OVERALL, key);
+        Collection<Artist> artists = ExtendedLastFmUser.getTopArtists(user, Period.OVERALL, DEFALUT_LIMIT, key);
         return artists;
     }
 

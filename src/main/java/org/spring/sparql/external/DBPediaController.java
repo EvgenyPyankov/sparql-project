@@ -43,7 +43,7 @@ public class DBPediaController {
         List<ArtistEntity> artists = new ArrayList<>();
         while (result.hasNext()) {
             BindingSet bs = result.next();
-            ArtistEntity artist = new ArtistEntity(bs);
+            ArtistEntity artist = new ArtistEntity(name, bs);
             artists.add(artist);
         }
         return artists;
@@ -57,9 +57,10 @@ public class DBPediaController {
         String query = String.format(QueryFinder.find("getArtistsHometownsQuery"), tmp);
         TupleQueryResult result = sparql.select(query);
         List<ArtistEntity> artists = new ArrayList<>();
+        //TODO: Fix empty name
         while (result.hasNext()) {
             BindingSet bs = result.next();
-            ArtistEntity artist = new ArtistEntity(bs);
+            ArtistEntity artist = new ArtistEntity("", bs);
             artists.add(artist);
         }
         return artists;

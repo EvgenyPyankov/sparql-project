@@ -21,7 +21,7 @@ public class AppController {
 
     public Collection<ArtistEntity> getArtistsHometowns() throws Exception{
         Collection<ArtistEntity> results = new ArrayList<>();
-        Collection<Artist> topArtists = lastFmController.getTopArtists(10);
+        Collection<Artist> topArtists = lastFmController.getTopArtists();
         for (Artist artist: topArtists){
             Collection<ArtistEntity> artists = dbPediaController.getArtistHometown(artist.getName());
             results.addAll(artists);
