@@ -20,14 +20,14 @@ public class ArtistEntity {
         Value hometown = bs.getValue("hometown");
         Value hometownName = bs.getValue("hometownName");
         Value lat = bs.getValue("lat");
-        Value lon = bs.getValue("lon");
+        Value lng = bs.getValue("lng");
         Double doubleLat = lat != null? Double.parseDouble(lat.stringValue()): 0;
-        Double doubleLon = lon != null? Double.parseDouble(lon.stringValue()): 0;
+        Double doubleLng = lng != null? Double.parseDouble(lng.stringValue()): 0;
         this.band = band.stringValue();
         this.bandName = name;
         this.hometown = hometown.stringValue();
         this.hometownName = hometownName.stringValue();
-        this.location = new Location(doubleLat, doubleLon);
+        this.location = new Location(doubleLat, doubleLng);
     }
 
     public String getBand() {

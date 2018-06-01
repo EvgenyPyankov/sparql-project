@@ -63,7 +63,7 @@
           if (artist === null)
             continue;
           var lat = artist.location.lat;
-          var lng = artist.location.lon;
+          var lng = artist.location.lng;
           if (lat === null && lng === null) {
             continue;
           }

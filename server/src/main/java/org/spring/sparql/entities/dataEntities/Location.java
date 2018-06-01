@@ -2,11 +2,11 @@ package org.spring.sparql.entities.dataEntities;
 
 public class Location {
     private double lat;
-    private double lon;
+    private double lng;
 
-    public Location(double lat, double lon) {
+    public Location(double lat, double lng) {
         this.lat = lat;
-        this.lon = lon;
+        this.lng = lng;
     }
 
     public double getLat() {
@@ -17,11 +17,11 @@ public class Location {
         this.lat = lat;
     }
 
-    public double getLon() {
-        return lon;
+    public double getLng() {
+        return lng;
     }
 
-    public void setLon(double lon) {
-        this.lon = lon;
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 }
