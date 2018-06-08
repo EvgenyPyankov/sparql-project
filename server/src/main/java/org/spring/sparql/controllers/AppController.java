@@ -4,13 +4,18 @@ import de.umass.lastfm.Artist;
 import org.spring.sparql.entities.dataEntities.ArtistEntity;
 import org.spring.sparql.external.DBPediaController;
 import org.spring.sparql.external.LastFmController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+@Component
 public class AppController {
-    LastFmController lastFmController = new LastFmController();
-    DBPediaController dbPediaController = new DBPediaController();
+    @Autowired
+    LastFmController lastFmController;
+    @Autowired
+    DBPediaController dbPediaController;
     public Collection<Artist> getTopArtists(){
         return lastFmController.getTopArtists();
     }

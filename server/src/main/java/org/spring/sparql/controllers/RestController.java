@@ -4,9 +4,9 @@ import de.umass.lastfm.Artist;
 import org.spring.sparql.entities.dataEntities.ArtistEntity;
 import org.spring.sparql.external.DBPediaController;
 import org.spring.sparql.external.LastFmController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,14 +18,18 @@ import java.util.List;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @CrossOrigin(origins = "http://localhost:8082")
-@Controller
+@org.springframework.web.bind.annotation.RestController
 public class RestController {
-    AppController controller = new AppController();
+    @Autowired
+    AppController controller;
+
+    @Autowired
+    LastFmController lastFmController;
 
     @RequestMapping("/")
     public String index(Model model){
         model.addAttribute("name", "Evgeny");
-        new LastFmController().getTopArtists();
+        lastFmController.getTopArtists();
         return "index";
     }
 

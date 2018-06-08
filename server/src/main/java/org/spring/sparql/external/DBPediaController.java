@@ -6,10 +6,12 @@ import org.openrdf.query.TupleQueryResult;
 import org.spring.sparql.QueryFinder;
 import org.spring.sparql.entities.dataEntities.ArtistEntity;
 import org.spring.sparql.services.SPARQLService;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class DBPediaController {
     private String URL = "http://dbpedia.org/sparql";
     SPARQLService sparql;
