@@ -1,4 +1,4 @@
-package org.spring.sparql.services;
+package org.spring.sparql.service;
 
 import org.openrdf.query.QueryLanguage;
 import org.openrdf.query.TupleQueryResult;

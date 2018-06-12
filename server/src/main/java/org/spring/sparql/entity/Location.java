@@ -1,4 +1,4 @@
-package org.spring.sparql.entities.dataEntities;
+package org.spring.sparql.entity;
 
 public class Location {
     private double lat;

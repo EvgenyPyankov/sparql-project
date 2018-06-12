@@ -1,11 +1,12 @@
-package org.spring.sparql.external;
+package org.spring.sparql.service.DBPedia;
 
 import org.openrdf.model.Value;
 import org.openrdf.query.BindingSet;
 import org.openrdf.query.TupleQueryResult;
-import org.spring.sparql.QueryFinder;
-import org.spring.sparql.entities.dataEntities.ArtistEntity;
-import org.spring.sparql.services.SPARQLService;
+import org.spring.sparql.utils.QueryFinder;
+import org.spring.sparql.entity.ArtistEntity;
+import org.spring.sparql.service.SPARQLService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -14,10 +15,15 @@ import java.util.List;
 @Component
 public class DBPediaController {
     private String URL = "http://dbpedia.org/sparql";
-    SPARQLService sparql;
+
+    private SPARQLService sparql;
+
+//    @Autowired
+    private QueryFinder queryFinder;
 
     public DBPediaController() {
         sparql = new SPARQLService(URL);
+        queryFinder = new QueryFinder();
     }
 
     public void getInfoAboutBand() throws Exception {
@@ -40,7 +46,7 @@ public class DBPediaController {
     }
 
     public List<ArtistEntity> getArtistHometown(String name) throws Exception {
-        String query = String.format(QueryFinder.find("getArtistHometownLocationQuery"), name);
+        String query = String.format(queryFinder.find("getArtistHometownLocationQuery"), name);
         TupleQueryResult result = sparql.select(query);
         List<ArtistEntity> artists = new ArrayList<>();
         while (result.hasNext()) {
@@ -56,7 +62,7 @@ public class DBPediaController {
         for (String name : names) {
             tmp += String.format("(\"%s\"@en)");
         }
-        String query = String.format(QueryFinder.find("getArtistsHometownsQuery"), tmp);
+        String query = String.format(queryFinder.find("getArtistsHometownsQuery"), tmp);
         TupleQueryResult result = sparql.select(query);
         List<ArtistEntity> artists = new ArrayList<>();
         //TODO: Fix empty name

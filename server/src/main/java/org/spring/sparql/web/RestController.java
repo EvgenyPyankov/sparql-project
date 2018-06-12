@@ -1,9 +1,10 @@
-package org.spring.sparql.controllers;
+package org.spring.sparql.web;
 
 import de.umass.lastfm.Artist;
-import org.spring.sparql.entities.dataEntities.ArtistEntity;
-import org.spring.sparql.external.DBPediaController;
-import org.spring.sparql.external.LastFmController;
+import org.spring.sparql.controllers.AppController;
+import org.spring.sparql.entity.ArtistEntity;
+import org.spring.sparql.service.DBPedia.DBPediaController;
+import org.spring.sparql.service.LastFM.LastFmController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

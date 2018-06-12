@@ -1,4 +1,4 @@
-package org.spring.sparql.external;
+package org.spring.sparql.service.LastFM;
 
 import de.umass.lastfm.Artist;
 import de.umass.lastfm.Caller;

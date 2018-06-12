@@ -1,4 +1,4 @@
-package org.spring.sparql.entities.dataEntities;
+package org.spring.sparql.entity;
 
 import org.openrdf.model.Value;
 import org.openrdf.query.BindingSet;
