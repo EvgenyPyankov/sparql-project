@@ -17,12 +17,12 @@ public class AppController {
     LastFmController lastFmController;
     @Autowired
     DBPediaController dbPediaController;
-    public Collection<Artist> getTopArtists(){
-        return lastFmController.getTopArtists(Credentials.LAST_FM_USER);
+    public Collection<Artist> getTopArtists(String user){
+        return lastFmController.getTopArtists(user);
     }
 
-    public Collection<Artist> getTopArtists(int limit){
-        return lastFmController.getTopArtists(Credentials.LAST_FM_USER, limit);
+    public Collection<Artist> getTopArtists(String user, int limit){
+        return lastFmController.getTopArtists(user, limit);
     }
 
     public Collection<ArtistEntity> getArtistsHometowns(String user, int limit) throws Exception{

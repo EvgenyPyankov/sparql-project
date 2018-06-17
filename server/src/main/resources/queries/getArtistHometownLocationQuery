@@ -1,0 +1,37 @@
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX dbp: <http://dbpedia.org/resource/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <http://schema.org/>
+
+select ?band ?hometown ?hometownName ?lat ?lng
+where {
+	?band foaf:name "%s"@en.
+    ?band dbo:hometown ?hometown.
+    ?band rdf:type ?bandType.
+    ?hometown rdf:type ?townType.
+    ?hometown foaf:name ?hometownName.
+    ?hometown geo:lat ?lat.
+    ?hometown geo:long ?lng.
+	filter(
+	(?bandType in (dbo:Agent, 
+					dbo:Band, 
+					dbo:Group, 
+					foaf:Person, 
+					dbo:Person, 
+					dbo:Artist, 
+					dbo:MusicalArtist, 
+					schema:Artist, 
+					schema:MusicGroup)
+					)
+	&& (?townType in (dbo:Place, 
+					dbo:City, 
+					dbo:Settlement, 
+					schema:City, 
+					dbo:Village, 
+					dbo:Town)
+					)
+	)
+}
+limit 1

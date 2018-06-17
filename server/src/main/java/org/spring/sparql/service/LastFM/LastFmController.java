@@ -13,7 +13,7 @@ import java.util.Collection;
 @Component
 public class LastFmController {
     private String key;
-    private final int DEFALUT_LIMIT = 15;
+    private final int DEFALUT_LIMIT = 20;
 
     public LastFmController(String key) {
         Caller.getInstance().setUserAgent("tst");
