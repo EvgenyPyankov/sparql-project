@@ -1,6 +1,12 @@
 <template>
   <div id="app">
-    <google-map/>
+    <md-card>
+      <md-card-header>
+        <div class="md-title">Last.fm library visualization</div>
+        <div class="md-subhead">Map of artists hometowns</div>
+      </md-card-header>
+      <google-map/>
+    </md-card>
   </div>
 </template>
 
@@ -16,30 +22,4 @@
 </script>
 
 <style>
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
-
-  h1, h2 {
-    font-weight: normal;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-
-  a {
-    color: #42b983;
-  }
 </style>

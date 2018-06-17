@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collection;
 import java.util.List;
@@ -28,35 +29,42 @@ public class RestController {
     LastFmController lastFmController;
 
     @RequestMapping("/")
-    public String index(Model model){
+    public String index(Model model) {
         model.addAttribute("name", "Evgeny");
-        lastFmController.getTopArtists();
         return "index";
     }
 
     @RequestMapping("/artists")
-    public ResponseEntity<Object> artists(Model model){
+    public ResponseEntity<Object> artists(Model model) {
         Collection<Artist> artists = controller.getTopArtists();
         return new ResponseEntity<Object>(artists, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/artists/{limit}", method = GET)
-    public ResponseEntity<Object> artists(@PathVariable("limit") int limit){
+    public ResponseEntity<Object> artists(@PathVariable("limit") int limit) {
         System.out.println("here");
         Collection<Artist> artists = controller.getTopArtists(limit);
         return new ResponseEntity<Object>(artists, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/artist/{name}", method = GET)
-    public ResponseEntity<Object> test(@PathVariable("name") String name) throws Exception{
+    public ResponseEntity<Object> test(@PathVariable("name") String name) throws Exception {
         DBPediaController cntr = new DBPediaController();
         List<ArtistEntity> artists = cntr.getArtistHometown(name);
         return new ResponseEntity<Object>(artists, HttpStatus.OK);
     }
 
     @RequestMapping("/hometowns")
-    public ResponseEntity<Object> getArtistsHometowns() throws Exception{
-        Collection<ArtistEntity> artists = controller.getArtistsHometowns();
-        return new ResponseEntity<Object>(artists, HttpStatus.OK);
+    public ResponseEntity<Object> getArtistsHometownsByUser(@RequestParam("user") String user,
+                                                            @RequestParam("limit") int limit) throws Exception {
+        try {
+            Collection<ArtistEntity> artists = controller.getArtistsHometowns(user, limit);
+            return new ResponseEntity<Object>(artists, HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
+
 }
+

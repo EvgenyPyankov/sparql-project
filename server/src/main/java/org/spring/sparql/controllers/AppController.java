@@ -1,6 +1,7 @@
 package org.spring.sparql.controllers;
 
 import de.umass.lastfm.Artist;
+import org.spring.sparql.constants.Credentials;
 import org.spring.sparql.entity.ArtistEntity;
 import org.spring.sparql.service.DBPedia.DBPediaController;
 import org.spring.sparql.service.LastFM.LastFmController;
@@ -17,16 +18,19 @@ public class AppController {
     @Autowired
     DBPediaController dbPediaController;
     public Collection<Artist> getTopArtists(){
-        return lastFmController.getTopArtists();
+        return lastFmController.getTopArtists(Credentials.LAST_FM_USER);
     }
 
     public Collection<Artist> getTopArtists(int limit){
-        return lastFmController.getTopArtists(limit);
+        return lastFmController.getTopArtists(Credentials.LAST_FM_USER, limit);
     }
 
-    public Collection<ArtistEntity> getArtistsHometowns() throws Exception{
+    public Collection<ArtistEntity> getArtistsHometowns(String user, int limit) throws Exception{
+        if (!lastFmController.userExists(user)){
+            throw new RuntimeException("No such user");
+        }
         Collection<ArtistEntity> results = new ArrayList<>();
-        Collection<Artist> topArtists = lastFmController.getTopArtists();
+        Collection<Artist> topArtists = lastFmController.getTopArtists(user, limit);
         for (Artist artist: topArtists){
             Collection<ArtistEntity> artists = dbPediaController.getArtistHometown(artist.getName());
             results.addAll(artists);
