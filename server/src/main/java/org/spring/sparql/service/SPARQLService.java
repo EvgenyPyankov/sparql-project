@@ -4,6 +4,7 @@ import org.openrdf.query.QueryLanguage;
 import org.openrdf.query.TupleQueryResult;
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.sparql.SPARQLRepository;
+import org.springframework.stereotype.Component;
 
 public class SPARQLService {
     private SPARQLRepository repo;
@@ -20,7 +21,6 @@ public class SPARQLService {
                 conn.prepareTupleQuery(QueryLanguage.SPARQL, query).evaluate();
 
         return result;
-
     }
 
 

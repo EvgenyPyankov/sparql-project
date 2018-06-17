@@ -39,6 +39,7 @@ public class RestController {
             return new ResponseEntity<Object>(artists, HttpStatus.OK);
         }
         catch (Exception e){
+            System.out.println(e);
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }

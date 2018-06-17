@@ -5,6 +5,7 @@ import org.openrdf.query.TupleQueryResult;
 import org.spring.sparql.entity.ArtistEntity;
 import org.spring.sparql.service.SPARQLService;
 import org.spring.sparql.utils.QueryFinder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -16,11 +17,11 @@ public class DBPediaController {
 
     private SPARQLService sparql;
 
+    @Autowired
     private QueryFinder queryFinder;
 
     public DBPediaController() {
         sparql = new SPARQLService(URL);
-        queryFinder = new QueryFinder();
     }
 
     public List<ArtistEntity> getInfoAboutBand(String name) throws Exception {

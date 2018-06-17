@@ -10,12 +10,14 @@ import java.nio.file.Paths;
 @Component
 public class QueryFinder {
 
+    @Value("${app.queries.path}")
+    private String path;
+
     public String find(String name){
         if (name == null || name.length() == 0)
             throw new IllegalArgumentException("Query name can't be null or empty string");
-        String path = "server/src/main/resources/queries/" + name;
         try {
-            return new String(Files.readAllBytes(Paths.get(path)));
+            return new String(Files.readAllBytes(Paths.get(path+name)));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
