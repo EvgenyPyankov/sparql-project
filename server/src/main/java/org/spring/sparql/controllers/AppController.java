@@ -1,7 +1,6 @@
 package org.spring.sparql.controllers;
 
 import de.umass.lastfm.Artist;
-import org.spring.sparql.constants.Credentials;
 import org.spring.sparql.entity.ArtistEntity;
 import org.spring.sparql.service.DBPedia.DBPediaController;
 import org.spring.sparql.service.LastFM.LastFmController;

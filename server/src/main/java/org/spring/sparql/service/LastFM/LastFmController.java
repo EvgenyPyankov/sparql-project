@@ -1,10 +1,9 @@
 package org.spring.sparql.service.LastFM;
 
 import de.umass.lastfm.Artist;
-import de.umass.lastfm.Caller;
 import de.umass.lastfm.Period;
 import de.umass.lastfm.User;
-import org.spring.sparql.constants.Credentials;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -12,17 +11,10 @@ import java.util.Collection;
 
 @Component
 public class LastFmController {
+
+    @Value("${app.lastfm.key}")
     private String key;
     private final int DEFALUT_LIMIT = 20;
-
-    public LastFmController(String key) {
-        Caller.getInstance().setUserAgent("tst");
-        this.key = key;
-    }
-
-    public LastFmController() {
-        this.key = Credentials.LAST_FM_KEY;
-    }
 
     public Collection<Artist> getTopArtists(String user) {
         Collection<Artist> artists = getTopArtists(user, DEFALUT_LIMIT);
