@@ -19,3 +19,6 @@ Data sources: SPARQL-endpoint of [dbpedia.org](https://wiki.dbpedia.org/) and [l
 ![Img1](docs/img/img2.png)
 
 ![Img2](docs/img/img1.png)
+
+
+[Screencast video](https://www.youtube.com/watch?v=JCGxFa0msCY)
